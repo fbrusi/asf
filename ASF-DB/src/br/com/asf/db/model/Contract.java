@@ -1,6 +1,7 @@
-package br.com.asf.db.models;
+package br.com.asf.db.model;
 
 import java.math.BigInteger;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,7 +17,7 @@ public class Contract {
 	@Id
 	@Column(name = "id_contract")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private Integer id;
 
 	@Column(name = "contract_number", nullable = false)
 	private Long contractNumber;
@@ -26,6 +27,12 @@ public class Contract {
 	
 	@Column(name = "foreign_value", nullable = false)
 	private BigInteger foreignValue;
+	
+	@Column(name = "create_date", nullable = false)
+	private Date createDate;
+	
+	@Column(name = "expiration_date", nullable = false)
+	private Date expirationDate;
 
 	public Long getContractNumber() {
 		return contractNumber;
@@ -51,7 +58,27 @@ public class Contract {
 		this.foreignValue = foreignValue;
 	}
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
+	}
+	
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public Date getCreateDate() {
+		return createDate;
+	}
+
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
+	}
+
+	public Date getExpirationDate() {
+		return expirationDate;
+	}
+
+	public void setExpirationDate(Date expirationDate) {
+		this.expirationDate = expirationDate;
 	}
 }
