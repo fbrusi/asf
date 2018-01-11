@@ -1,11 +1,13 @@
 package test;
 
 import java.math.BigInteger;
+import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 
+import br.com.asf.constant.CurrencyTypeEnum;
 import br.com.asf.db.dao.GenericDao;
 import br.com.asf.db.model.Company;
 import br.com.asf.db.model.Contract;
@@ -18,6 +20,7 @@ public class Test {
 		//EntityManager manager = new JPAUtil().geEntityManager(); manager.close();
 		
 		saveTest();
+		/*
 		System.out.println("================================");
 		readByIdTest();
 		System.out.println("================================");
@@ -30,6 +33,7 @@ public class Test {
 		updateTest();
 		System.out.println("================================");
 		readAllTest();
+		*/
 	}
 
 	private static void saveTest() {
@@ -41,8 +45,9 @@ public class Test {
 		contract.setContractNumber(Long.valueOf(54321));
 		contract.setForeignValue(BigInteger.valueOf(500));
 		contract.setValue(BigInteger.valueOf(800));
-		contract.setCreateDate(Calendar.getInstance().getTime());
-		contract.setExpirationDate(Calendar.getInstance().getTime());
+		contract.setCreateDate(LocalDateTime.now());
+		contract.setExpirationDate(Calendar.getInstance());
+		contract.setCurrencyType(CurrencyTypeEnum.CAD);
 
 		manager.getTransaction().begin();
 		dao.save(contract);

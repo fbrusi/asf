@@ -1,5 +1,7 @@
 package br.com.asf.db.model;
 
+import java.math.BigInteger;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,9 +14,9 @@ import javax.persistence.Table;
 public class Client {
 
 	@Id
-	@Column(name = "id_client")
+	@Column(name = "id_client", columnDefinition = "BIGINT(20)")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	private BigInteger id;
 	
 	@Column(nullable = false)
 	private String name;
@@ -28,11 +30,11 @@ public class Client {
 	@Column(nullable = false)
 	private String password;
 
-	public Integer getId() {
+	public BigInteger getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(BigInteger id) {
 		this.id = id;
 	}
 

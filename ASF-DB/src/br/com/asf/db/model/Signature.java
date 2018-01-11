@@ -7,24 +7,23 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "tb_companies")
-public class Company {
+@Table(name = "tb_signatures")
+public class Signature {
 
 	@Id
-	@Column(name = "id_company", columnDefinition = "BIGINT(20)")
+	@Column(name = "id_signature", columnDefinition = "BIGINT(20)")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private BigInteger id;
 	
-	@Column(nullable = false)
-	private String name;
-	
-	@Column(nullable = false)
-	private String cnpj;
+	@ManyToOne(optional = false)
+	@JoinColumn(name = "id_client")
+	private Client client;
 
-	@Column(nullable = false)
 	public BigInteger getId() {
 		return id;
 	}
@@ -33,19 +32,11 @@ public class Company {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public Client getClient() {
+		return client;
 	}
 
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getCnpj() {
-		return cnpj;
-	}
-
-	public void setCnpj(String cnpj) {
-		this.cnpj = cnpj;
+	public void setClient(Client client) {
+		this.client = client;
 	}
 }
