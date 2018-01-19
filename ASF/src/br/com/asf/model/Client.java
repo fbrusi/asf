@@ -1,4 +1,4 @@
-package br.com.asf.db.model;
+package br.com.asf.model;
 
 import java.math.BigInteger;
 
@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -21,14 +23,20 @@ public class Client {
 	@Column(nullable = false)
 	private String name;
 	
-	@Column(nullable = false)
+	@Column(nullable = false, unique = true)
 	private Integer cpf;
 	
-	@Column(nullable = false)
+	@Column(nullable = false, unique = true)
 	private String email;
 	
 	@Column(nullable = false)
 	private String password;
+	
+	
+	@ManyToOne
+	@JoinColumn(name = "id_company", nullable = false)
+	private Company company;
+	
 
 	public BigInteger getId() {
 		return id;
@@ -68,5 +76,13 @@ public class Client {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public Company getCompany() {
+		return company;
+	}
+
+	public void setCompany(Company company) {
+		this.company = company;
 	}
 }

@@ -1,12 +1,16 @@
-package br.com.asf.db.model;
+package br.com.asf.model;
 
 import java.math.BigInteger;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -21,10 +25,18 @@ public class Company {
 	@Column(nullable = false)
 	private String name;
 	
-	@Column(nullable = false)
+	@Column(nullable = false, unique = true)
 	private String cnpj;
+	
+	
+	@ManyToMany
+	@JoinTable(name = "tb_companies_documents")
+	private List<Document> documents;
+	
+	@OneToMany(mappedBy = "company")
+	private List<Client> clients;
+	
 
-	@Column(nullable = false)
 	public BigInteger getId() {
 		return id;
 	}
@@ -47,5 +59,21 @@ public class Company {
 
 	public void setCnpj(String cnpj) {
 		this.cnpj = cnpj;
+	}
+
+	public List<Client> getClients() {
+		return clients;
+	}
+
+	public void setClients(List<Client> clients) {
+		this.clients = clients;
+	}
+
+	public List<Document> getDocuments() {
+		return documents;
+	}
+
+	public void setDocuments(List<Document> documents) {
+		this.documents = documents;
 	}
 }

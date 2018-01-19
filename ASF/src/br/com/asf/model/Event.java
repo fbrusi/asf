@@ -1,4 +1,4 @@
-package br.com.asf.db.model;
+package br.com.asf.model;
 
 import java.math.BigInteger;
 import java.time.LocalDateTime;
@@ -10,6 +10,8 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import br.com.asf.constant.EventType;
@@ -29,6 +31,16 @@ public class Event {
 	
 	@Column(nullable = false)
 	private LocalDateTime date;
+	
+	
+	@ManyToOne
+	@JoinColumn(name = "id_document", nullable = false)
+	private Document document;
+	
+	@ManyToOne
+	@JoinColumn(name = "id_client", nullable = false)
+	private Client client;
+	
 
 	public BigInteger getId() {
 		return id;
@@ -52,5 +64,21 @@ public class Event {
 
 	public void setDate(LocalDateTime date) {
 		this.date = date;
+	}
+
+	public Client getClient() {
+		return client;
+	}
+
+	public void setClient(Client client) {
+		this.client = client;
+	}
+
+	public Document getDocument() {
+		return document;
+	}
+
+	public void setDocument(Document document) {
+		this.document = document;
 	}
 }
