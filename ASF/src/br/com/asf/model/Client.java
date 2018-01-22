@@ -23,8 +23,8 @@ public class Client {
 	@Column(nullable = false)
 	private String name;
 	
-	@Column(nullable = false, unique = true)
-	private Integer cpf;
+	@Column(nullable = false, unique = true, columnDefinition = "BIGINT(9)")
+	private BigInteger cpf;
 	
 	@Column(nullable = false, unique = true)
 	private String email;
@@ -54,11 +54,11 @@ public class Client {
 		this.name = name;
 	}
 
-	public Integer getCpf() {
+	public BigInteger getCpf() {
 		return cpf;
 	}
 
-	public void setCpf(Integer cpf) {
+	public void setCpf(BigInteger cpf) {
 		this.cpf = cpf;
 	}
 

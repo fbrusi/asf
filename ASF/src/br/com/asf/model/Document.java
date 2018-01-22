@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
@@ -22,9 +23,11 @@ import javax.persistence.TemporalType;
 
 import br.com.asf.constant.CurrencyType;
 import br.com.asf.constant.FlowStatus;
+import br.com.asf.model.listener.DocumentListener;
 
 @Entity
 @Table(name = "tb_documents")
+@EntityListeners(DocumentListener.class)
 public class Document {
 
 	@Id
