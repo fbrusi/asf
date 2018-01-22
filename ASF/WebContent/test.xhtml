@@ -11,7 +11,13 @@
 	</h:head>
 	<h:body>
 		<h:form>
-			<h:commandButton value="Testar" action="#{test.executeTest}" />
+			<h:commandButton value="Testar gravar documento" action="#{test.testSaveDocument}" />
+			<br/>
+			<h:commandButton value="Testar gravar empresa" action="#{test.testSaveCompany}" />
+			<br/>
+			<h:commandButton value="Testar atualizar empresa" action="#{test.testUpdateCompany}" />
+			<br/>
+			<h:commandButton value="Testar contagem de documento por status" action="#{test.testDocumentQuantity}" />
 		</h:form>
 	</h:body>
 	

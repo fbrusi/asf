@@ -14,7 +14,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -64,11 +63,17 @@ public class Document {
 	@JoinColumn(name = "id_document_file", nullable = false)
 	private DocumentFile documentFile;
 	
+	@OneToOne
+	@JoinColumn(name = "id_company_contractor", nullable = false)
+	private Company contractor;
+	
+	@OneToOne
+	@JoinColumn(name = "id_company_contracted", nullable = false)
+	private Company contracted;
+	
+	
 	@OneToMany(mappedBy = "document")
 	private List<ManualAction> manualActions;
-	
-	@ManyToMany(mappedBy = "documents")
-	private List<Company> companies;
 	
 	@OneToMany(mappedBy = "document")
 	private List<Event> events;
@@ -157,14 +162,6 @@ public class Document {
 		this.manualActions = manualActions;
 	}
 
-	public List<Company> getCompanies() {
-		return companies;
-	}
-
-	public void setCompanies(List<Company> companies) {
-		this.companies = companies;
-	}
-
 	public List<Event> getEvents() {
 		return events;
 	}
@@ -179,5 +176,21 @@ public class Document {
 
 	public void setVerifications(List<Verification> verifications) {
 		this.verifications = verifications;
+	}
+
+	public Company getContractor() {
+		return contractor;
+	}
+
+	public void setContractor(Company contractor) {
+		this.contractor = contractor;
+	}
+
+	public Company getContracted() {
+		return contracted;
+	}
+
+	public void setContracted(Company contracted) {
+		this.contracted = contracted;
 	}
 }

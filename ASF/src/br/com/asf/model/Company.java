@@ -8,8 +8,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -27,11 +25,7 @@ public class Company {
 	
 	@Column(nullable = false, unique = true)
 	private String cnpj;
-	
-	
-	@ManyToMany
-	@JoinTable(name = "tb_companies_documents")
-	private List<Document> documents;
+
 	
 	@OneToMany(mappedBy = "company")
 	private List<Client> clients;
@@ -67,13 +61,5 @@ public class Company {
 
 	public void setClients(List<Client> clients) {
 		this.clients = clients;
-	}
-
-	public List<Document> getDocuments() {
-		return documents;
-	}
-
-	public void setDocuments(List<Document> documents) {
-		this.documents = documents;
 	}
 }
