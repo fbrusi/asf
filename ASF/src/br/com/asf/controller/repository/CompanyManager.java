@@ -1,5 +1,6 @@
 package br.com.asf.controller.repository;
 
+import java.math.BigInteger;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -27,6 +28,10 @@ public class CompanyManager {
 		query.setHint("org.hibernate.cacheable", "true");
 		
 		return query.getResultList();
+	}
+	
+	public Company getCompanyById(BigInteger id) {
+		return entityManager.find(Company.class, id);
 	}
 	
 	public void updateCompanyInfo(Company company) {

@@ -14,12 +14,14 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
 
 import br.com.asf.constant.EventType;
 
 @Entity
 @Cacheable
-@Table(name = "tb_events")
+@Table(name = "tb_events", uniqueConstraints = {@UniqueConstraint(columnNames = {"type", "date", "id_document", "id_client"})})
 public class Event {
 
 	@Id
@@ -27,20 +29,24 @@ public class Event {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private BigInteger id;
 	
+	@NotNull
 	@Enumerated(EnumType.STRING)
-	@Column(nullable = false)
+	@Column(nullable = false, updatable = false)
 	private EventType type;
 	
-	@Column(nullable = false)
+	@NotNull
+	@Column(nullable = false, updatable = false)
 	private LocalDateTime date;
 	
 	
+	@NotNull
 	@ManyToOne
-	@JoinColumn(name = "id_document", nullable = false)
+	@JoinColumn(name = "id_document", nullable = false, updatable = false)
 	private Document document;
 	
+	@NotNull
 	@ManyToOne
-	@JoinColumn(name = "id_client", nullable = false)
+	@JoinColumn(name = "id_client", nullable = false, updatable = false)
 	private Client client;
 	
 

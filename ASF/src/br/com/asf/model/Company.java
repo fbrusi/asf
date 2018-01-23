@@ -13,6 +13,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Version;
 
+import org.hibernate.validator.constraints.NotEmpty;
+import org.hibernate.validator.constraints.br.CNPJ;
+
 @Entity
 @Cacheable
 @Table(name = "tb_companies")
@@ -24,12 +27,15 @@ public class Company {
 	private BigInteger id;
 	
 	@Version
-	private Integer verion; //lock otimista
+	private Integer version; //lock otimista
 	
+	@NotEmpty
 	@Column(nullable = false)
 	private String name;
 	
-	@Column(nullable = false, unique = true)
+	@CNPJ
+	@NotEmpty
+	@Column(nullable = false, unique = true, updatable = false)
 	private String cnpj;
 
 	
@@ -69,11 +75,11 @@ public class Company {
 		this.clients = clients;
 	}
 
-	public Integer getVerion() {
-		return verion;
+	public Integer getVersion() {
+		return version;
 	}
 
-	public void setVerion(Integer verion) {
-		this.verion = verion;
+	public void setVersion(Integer version) {
+		this.version = version;
 	}
 }

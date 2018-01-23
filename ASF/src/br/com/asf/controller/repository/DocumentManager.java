@@ -13,12 +13,19 @@ public class DocumentManager {
 
 	@Inject
 	private EntityManager entityManager;
+	
+	@Inject
+	private CompanyManager companyManager;
 
 	public void saveDocument(Document document) {
 		
 		entityManager.joinTransaction();
 		
 		entityManager.persist(document.getDocumentFile());
+		
+		document.setContracted(companyManager.getCompanyById(document.getContracted().getId()));
+		document.setContractor(companyManager.getCompanyById(document.getContractor().getId()));
+		
 		entityManager.persist(document);
 	}
 	

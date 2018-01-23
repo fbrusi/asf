@@ -12,10 +12,14 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 @Cacheable
-@Table(name = "tb_verifications")
+@Table(name = "tb_verifications", uniqueConstraints = {@UniqueConstraint(columnNames = {"id_client", "id_document"})})
 public class Verification {
 
 	@Id
@@ -23,19 +27,23 @@ public class Verification {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private BigInteger id;
 	
-	@Column(nullable = false, length = 5000000)
+	@NotEmpty
+	@Column(nullable = false, length = 5000000, updatable = false)
 	private String verification;
 	
-	@Column(nullable = false)
+	@NotNull
+	@Column(nullable = false, updatable = false)
 	private LocalDateTime date;
 	
 	
+	@NotNull
 	@ManyToOne
-	@JoinColumn(name = "id_document", nullable = false)
+	@JoinColumn(name = "id_document", nullable = false, updatable = false)
 	private Document document;
 	
+	@NotNull
 	@ManyToOne
-	@JoinColumn(name = "id_client", nullable = false)
+	@JoinColumn(name = "id_client", nullable = false, updatable = false)
 	private Client client;
 
 	

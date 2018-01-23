@@ -21,10 +21,14 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Version;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotEmpty;
 
 import br.com.asf.constant.CurrencyType;
 import br.com.asf.constant.FlowStatus;
 import br.com.asf.model.listener.DocumentListener;
+import br.com.asf.model.validator.DocumentNumber;
 
 @Entity
 @Cacheable
@@ -33,48 +37,59 @@ import br.com.asf.model.listener.DocumentListener;
 public class Document {
 
 	@Id
-	@Column(name = "id_document", columnDefinition = "BIGINT(20)")
+	@Column(name = "id_document", columnDefinition = "BIGINT(20)", updatable = false)
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private BigInteger id;
 	
 	@Version
-	private Integer verion; //lock otimista
+	private Integer version; //lock otimista
 
-	@Column(name = "document_number", nullable = false, unique = true)
-	private Long documentNumber;
+	@NotEmpty
+	@DocumentNumber
+	@Column(name = "document_number", nullable = false, unique = true, updatable = false)
+	private String documentNumber;
 	
-	@Column(nullable = false, columnDefinition = "BIGINT(20)")
+	@NotNull
+	@Column(nullable = false, columnDefinition = "BIGINT(20)", updatable = false)
 	private BigInteger value;
 	
-	@Column(name = "foreign_value", nullable = false, columnDefinition = "BIGINT(20)")
+	@NotNull
+	@Column(name = "foreign_value", nullable = false, columnDefinition = "BIGINT(20)", updatable = false)
 	private BigInteger foreignValue;
 	
+	@NotNull
 	@Enumerated(EnumType.STRING)
-	@Column(name = "currency_type", nullable = false)
+	@Column(name = "currency_type", nullable = false, updatable = false, length = 3)
 	private CurrencyType currencyType;
 	
-	@Column(name = "create_date", nullable = false)
+	@NotNull
+	@Column(name = "create_date", nullable = false, updatable = false)
 	private LocalDateTime createDate;
 	
+	@NotNull
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "expiration_date", nullable = false)
+	@Column(name = "expiration_date", nullable = false, updatable = false)
 	private Calendar expirationDate;
 	
+	@NotNull
 	@Enumerated(EnumType.STRING)
 	@Column(name = "flow_status", nullable = false)
 	private FlowStatus flowStatus;
 	
 	
+	@NotNull
 	@OneToOne
-	@JoinColumn(name = "id_document_file", nullable = false)
+	@JoinColumn(name = "id_document_file", nullable = false, updatable = false)
 	private DocumentFile documentFile;
 	
+	@NotNull
 	@OneToOne
-	@JoinColumn(name = "id_company_contractor", nullable = false)
+	@JoinColumn(name = "id_company_contractor", nullable = false, updatable = false)
 	private Company contractor;
 	
+	@NotNull
 	@OneToOne
-	@JoinColumn(name = "id_company_contracted", nullable = false)
+	@JoinColumn(name = "id_company_contracted", nullable = false, updatable = false)
 	private Company contracted;
 	
 	
@@ -96,11 +111,11 @@ public class Document {
 		this.id = id;
 	}
 
-	public Long getDocumentNumber() {
+	public String getDocumentNumber() {
 		return documentNumber;
 	}
 
-	public void setDocumentNumber(Long documentNumber) {
+	public void setDocumentNumber(String documentNumber) {
 		this.documentNumber = documentNumber;
 	}
 
@@ -200,11 +215,11 @@ public class Document {
 		this.contracted = contracted;
 	}
 
-	public Integer getVerion() {
-		return verion;
+	public Integer getVersion() {
+		return version;
 	}
 
-	public void setVerion(Integer verion) {
-		this.verion = verion;
+	public void setVersion(Integer version) {
+		this.version = version;
 	}
 }

@@ -10,6 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 @Entity
 @Cacheable
 @Table(name = "tb_documents_files")
@@ -20,7 +22,8 @@ public class DocumentFile {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private BigInteger id;
 	
-	@Column(name = "document_file", nullable = false, length = 5000000)
+	@NotEmpty
+	@Column(name = "document_file", nullable = false, length = 5000000, updatable = false)
 	private String documentFile;
 
 	

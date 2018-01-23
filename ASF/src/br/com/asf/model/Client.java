@@ -12,6 +12,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Version;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
+import org.hibernate.validator.constraints.br.CPF;
 
 @Entity
 @Cacheable
@@ -24,21 +29,28 @@ public class Client {
 	private BigInteger id;
 	
 	@Version
-	private Integer verion; //lock otimista
+	private Integer version; //lock otimista
 	
+	@NotEmpty
 	@Column(nullable = false)
 	private String name;
 	
-	@Column(nullable = false, unique = true, columnDefinition = "BIGINT(9)")
-	private BigInteger cpf;
+	@CPF
+	@NotEmpty
+	@Column(nullable = false, unique = true, columnDefinition = "BIGINT(9)", updatable = false)
+	private String cpf;
 	
+	@Email
+	@NotEmpty
 	@Column(nullable = false, unique = true)
 	private String email;
 	
+	@NotEmpty
 	@Column(nullable = false)
 	private String password;
 	
 	
+	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "id_company", nullable = false)
 	private Company company;
@@ -60,11 +72,11 @@ public class Client {
 		this.name = name;
 	}
 
-	public BigInteger getCpf() {
+	public String getCpf() {
 		return cpf;
 	}
 
-	public void setCpf(BigInteger cpf) {
+	public void setCpf(String cpf) {
 		this.cpf = cpf;
 	}
 
@@ -92,11 +104,11 @@ public class Client {
 		this.company = company;
 	}
 
-	public Integer getVerion() {
-		return verion;
+	public Integer getVersion() {
+		return version;
 	}
 
-	public void setVerion(Integer verion) {
-		this.verion = verion;
+	public void setVersion(Integer version) {
+		this.version = version;
 	}
 }

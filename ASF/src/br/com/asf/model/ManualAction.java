@@ -14,12 +14,16 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotEmpty;
 
 import br.com.asf.constant.ActionType;
 
 @Entity
 @Cacheable
-@Table(name = "tb_manual_actions")
+@Table(name = "tb_manual_actions", uniqueConstraints = {@UniqueConstraint(columnNames = {"type", "date", "id_client", "id_document"})})
 public class ManualAction {
 
 	@Id
@@ -27,23 +31,28 @@ public class ManualAction {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private BigInteger id;
 	
+	@NotNull
 	@Enumerated(EnumType.STRING)
-	@Column(nullable = false)
+	@Column(nullable = false, updatable = false)
 	private ActionType type;
 	
-	@Column(nullable = false)
+	@NotNull
+	@Column(nullable = false, updatable = false)
 	private LocalDateTime date;
 	
-	@Column(nullable = false)
+	@NotEmpty
+	@Column(nullable = false, updatable = false)
 	private String description;
 	
 	
+	@NotNull
 	@ManyToOne
-	@JoinColumn(name = "id_client", nullable = false)
+	@JoinColumn(name = "id_client", nullable = false, updatable = false)
 	private Client client;
 	
+	@NotNull
 	@ManyToOne
-	@JoinColumn(name = "id_document", nullable = false)
+	@JoinColumn(name = "id_document", nullable = false, updatable = false)
 	private Document document;
 	
 
