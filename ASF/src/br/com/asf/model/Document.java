@@ -79,7 +79,7 @@ public class Document {
 	
 	@NotNull
 	@OneToOne
-	@JoinColumn(name = "id_document_file", nullable = false, updatable = false)
+	@JoinColumn(name = "id_document_file", nullable = false, updatable = false, unique = true)
 	private DocumentFile documentFile;
 	
 	@NotNull
