@@ -15,28 +15,35 @@ public class CompanyManager {
 
 	@Inject
 	private EntityManager entityManager;
-	
+
 	public void saveCompany(Company company) {
-		
+
 		entityManager.joinTransaction();
 		entityManager.persist(company);
 	}
-	
-	public List<Company> getAllCompanies() {
-		
-		TypedQuery<Company> query =  entityManager.createQuery("SELECT c FROM Company c", Company.class);
-		query.setHint("org.hibernate.cacheable", "true");
-		
-		return query.getResultList();
-	}
-	
+
 	public Company getCompanyById(BigInteger id) {
 		return entityManager.find(Company.class, id);
 	}
-	
+
 	public void updateCompanyInfo(Company company) {
-		
+
 		entityManager.joinTransaction();
 		entityManager.merge(company);
+	}
+
+	public List<Company> getAllCompanies() {
+
+		TypedQuery<Company> query =  entityManager.createQuery("SELECT c FROM Company c", Company.class);
+		query.setHint("org.hibernate.cacheable", "true");
+
+		return query.getResultList();
+	}
+	
+	public void removeCompany(Company company) {
+		
+		entityManager.joinTransaction();
+		company = getCompanyById(company.getId());
+		entityManager.remove(company);
 	}
 }
