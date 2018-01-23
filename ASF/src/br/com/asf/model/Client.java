@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Version;
 
 @Entity
 @Cacheable
@@ -21,6 +22,9 @@ public class Client {
 	@Column(name = "id_client", columnDefinition = "BIGINT(20)")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private BigInteger id;
+	
+	@Version
+	private Integer verion; //lock otimista
 	
 	@Column(nullable = false)
 	private String name;
@@ -86,5 +90,13 @@ public class Client {
 
 	public void setCompany(Company company) {
 		this.company = company;
+	}
+
+	public Integer getVerion() {
+		return verion;
+	}
+
+	public void setVerion(Integer verion) {
+		this.verion = verion;
 	}
 }

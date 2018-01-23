@@ -20,6 +20,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Version;
 
 import br.com.asf.constant.CurrencyType;
 import br.com.asf.constant.FlowStatus;
@@ -35,6 +36,9 @@ public class Document {
 	@Column(name = "id_document", columnDefinition = "BIGINT(20)")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private BigInteger id;
+	
+	@Version
+	private Integer verion; //lock otimista
 
 	@Column(name = "document_number", nullable = false, unique = true)
 	private Long documentNumber;
@@ -194,5 +198,13 @@ public class Document {
 
 	public void setContracted(Company contracted) {
 		this.contracted = contracted;
+	}
+
+	public Integer getVerion() {
+		return verion;
+	}
+
+	public void setVerion(Integer verion) {
+		this.verion = verion;
 	}
 }
