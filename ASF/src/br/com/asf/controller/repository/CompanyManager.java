@@ -5,6 +5,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 
 import br.com.asf.model.Company;
 
@@ -21,7 +22,11 @@ public class CompanyManager {
 	}
 	
 	public List<Company> getAllCompanies() {
-		return entityManager.createQuery("SELECT c FROM Company c", Company.class).getResultList();
+		
+		TypedQuery<Company> query =  entityManager.createQuery("SELECT c FROM Company c", Company.class);
+		query.setHint("org.hibernate.cacheable", "true");
+		
+		return query.getResultList();
 	}
 	
 	public void updateCompanyInfo(Company company) {

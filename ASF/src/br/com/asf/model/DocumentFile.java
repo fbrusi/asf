@@ -2,6 +2,7 @@ package br.com.asf.model;
 
 import java.math.BigInteger;
 
+import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
+@Cacheable
 @Table(name = "tb_documents_files")
 public class DocumentFile {
 

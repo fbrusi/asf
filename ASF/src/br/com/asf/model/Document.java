@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.List;
 
+import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
@@ -25,6 +26,7 @@ import br.com.asf.constant.FlowStatus;
 import br.com.asf.model.listener.DocumentListener;
 
 @Entity
+@Cacheable
 @Table(name = "tb_documents")
 @EntityListeners(DocumentListener.class)
 public class Document {

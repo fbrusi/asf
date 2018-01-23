@@ -3,6 +3,7 @@ package br.com.asf.model;
 import java.math.BigInteger;
 import java.time.LocalDateTime;
 
+import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -17,6 +18,7 @@ import javax.persistence.Table;
 import br.com.asf.constant.ActionType;
 
 @Entity
+@Cacheable
 @Table(name = "tb_manual_actions")
 public class ManualAction {
 

@@ -36,7 +36,7 @@ public class Test {
 
 		Document document = new Document();
 		document.setCurrencyType(CurrencyType.CAD);
-		document.setDocumentNumber(Long.valueOf(123456));
+		document.setDocumentNumber(Long.valueOf(Calendar.getInstance().getTimeInMillis()));
 		document.setExpirationDate(Calendar.getInstance());
 		document.setForeignValue(BigInteger.valueOf(123));
 		document.setValue(BigInteger.valueOf(456));
@@ -50,11 +50,11 @@ public class Test {
 	public void testSaveCompany() {
 		
 		Company company1 = new Company();
-		company1.setCnpj("33479023000180");
+		company1.setCnpj(Long.valueOf(Calendar.getInstance().getTimeInMillis()).toString() + "A");
 		company1.setName("Empresa de teste 01");
 		
 		Company company2 = new Company();
-		company2.setCnpj("44789012000189");
+		company2.setCnpj(Long.valueOf(Calendar.getInstance().getTimeInMillis()).toString() + "B");
 		company2.setName("Empresa de teste 02");
 		
 		companyManager.saveCompany(company1);
@@ -72,7 +72,10 @@ public class Test {
 	}
 	
 	public void testDocumentQuantity() {
-		
 		System.out.println(documentManager.getDocumentsQuantityByStatus(FlowStatus.AGUARDANDO_CONTRATANTE));
+	}
+	
+	public void testListCompanies() {
+		System.out.println(companyManager.getAllCompanies().size());
 	}
 }

@@ -3,6 +3,7 @@ package br.com.asf.model;
 import java.math.BigInteger;
 import java.time.LocalDateTime;
 
+import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,6 +14,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
+@Cacheable
 @Table(name = "tb_verifications")
 public class Verification {
 
