@@ -4,6 +4,7 @@ import java.math.BigInteger;
 
 import javax.persistence.Cacheable;
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -48,6 +49,9 @@ public class Client {
 	@NotEmpty
 	@Column(nullable = false)
 	private String password;
+	
+	@Embedded
+	private Address address;
 	
 	
 	@NotNull
@@ -110,5 +114,13 @@ public class Client {
 
 	public void setVersion(Integer version) {
 		this.version = version;
+	}
+
+	public Address getAddress() {
+		return address;
+	}
+
+	public void setAddress(Address address) {
+		this.address = address;
 	}
 }
