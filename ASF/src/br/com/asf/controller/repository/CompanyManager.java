@@ -46,4 +46,14 @@ public class CompanyManager {
 		company = getCompanyById(company.getId());
 		entityManager.remove(company);
 	}
+	
+	public boolean companyExists(String cnpj) {
+		
+		String jpql = "SELECT COUNT(c) FROM Company c WHERE c.cnpj = :cnpj";
+		
+		TypedQuery<Long> query = entityManager.createQuery(jpql, Long.class);
+		query.setParameter("cnpj", cnpj);
+		
+		return query.getSingleResult() > 0;
+	}
 }
