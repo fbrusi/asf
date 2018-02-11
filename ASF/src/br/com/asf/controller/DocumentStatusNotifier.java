@@ -1,4 +1,4 @@
-package br.com.asf.controller.repository;
+package br.com.asf.controller;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;

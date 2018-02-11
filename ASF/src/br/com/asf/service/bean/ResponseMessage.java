@@ -1,4 +1,4 @@
-package br.com.asf.ws.bean;
+package br.com.asf.service.bean;
 
 public class ResponseMessage {
 

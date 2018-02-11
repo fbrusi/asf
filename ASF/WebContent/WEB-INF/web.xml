@@ -6,7 +6,7 @@
 	<display-name>ASF</display-name>
 
 	<welcome-file-list>
-		<welcome-file>index.xhtml</welcome-file>
+		<welcome-file>login.jsf</welcome-file>
 	</welcome-file-list>
 
 	<servlet>
@@ -16,7 +16,12 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>Faces Servlet</servlet-name>
-		<url-pattern>*.xhtml</url-pattern>
+		<url-pattern>*.jsf</url-pattern>
 	</servlet-mapping>
+
+	<context-param>
+		<param-name>primefaces.THEME</param-name>
+		<param-value>bootstrap</param-value>
+	</context-param>
 
 </web-app>

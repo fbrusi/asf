@@ -1,4 +1,4 @@
-package br.com.asf.ws;
+package br.com.asf.service.ws;
 
 import java.math.BigInteger;
 import java.util.List;
@@ -10,19 +10,18 @@ import javax.jws.WebParam;
 import javax.jws.WebResult;
 import javax.jws.WebService;
 
-import br.com.asf.controller.repository.CompanyManager;
+import br.com.asf.controller.dao.CompanyDao;
 import br.com.asf.model.Company;
-import br.com.asf.ws.bean.ResponseMessage;
-import br.com.caelum.stella.validation.CNPJValidator;
+import br.com.asf.service.bean.ResponseMessage;
 
-@Stateless
-@WebService
+//@Stateless
+//@WebService
 public class CompanyWS {
 
 	@Inject
-	private CompanyManager companyManager;
+	private CompanyDao companyManager;
 
-	@WebMethod
+	//@WebMethod
 	public ResponseMessage signUpCompany(
 			@WebParam(name = "name")
 			String name, 
@@ -31,9 +30,6 @@ public class CompanyWS {
 
 		if(name == null || name.isEmpty() || cnpj == null || cnpj.isEmpty()) {
 			return new ResponseMessage("Todos os parâmetros são obrigatórios.");
-		}
-		else if(!new CNPJValidator().isEligible(cnpj)) {
-			return new ResponseMessage("CNPJ informado é inválido.");
 		}
 		else if(companyManager.companyExists(cnpj)) {
 			return new ResponseMessage("Empresa já está cadastrada.");
@@ -49,13 +45,13 @@ public class CompanyWS {
 		}
 	}
 	
-	@WebMethod
+	//@WebMethod
 	@WebResult(name = "company")
 	public List<Company> getAllCompanies() {
 		return companyManager.getAllCompanies();
 	}
 	
-	@WebMethod
+	//@WebMethod
 	public ResponseMessage removeCompany(
 			@WebParam(name = "id")
 			String id) {

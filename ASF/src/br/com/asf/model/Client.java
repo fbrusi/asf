@@ -13,9 +13,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Version;
-import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.hibernate.validator.constraints.br.CPF;
 
@@ -38,15 +38,16 @@ public class Client {
 	
 	@CPF
 	@NotEmpty
-	@Column(nullable = false, unique = true, columnDefinition = "BIGINT(9)", updatable = false)
+	@Column(nullable = false, unique = true, updatable = false)
 	private String cpf;
 	
-	@Email
-	@NotEmpty
+	@Email(message = "{client.error.email}")
+	@NotEmpty(message = "{generic.error.empty}")
 	@Column(nullable = false, unique = true)
 	private String email;
 	
-	@NotEmpty
+	@NotEmpty(message = "{generic.error.empty}")
+	@Length(min = 4, max = 12, message = "{client.error.password.size}")
 	@Column(nullable = false)
 	private String password;
 	
@@ -54,9 +55,8 @@ public class Client {
 	private Address address;
 	
 	
-	@NotNull
 	@ManyToOne
-	@JoinColumn(name = "id_company", nullable = false)
+	@JoinColumn(name = "id_company")
 	private Company company;
 	
 

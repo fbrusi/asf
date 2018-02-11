@@ -1,4 +1,4 @@
-package br.com.asf.controller.repository;
+package br.com.asf.controller.dao;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -9,13 +9,13 @@ import br.com.asf.constant.FlowStatus;
 import br.com.asf.model.Document;
 
 @Stateless
-public class DocumentManager {
+public class DocumentDao {
 
 	@Inject
 	private EntityManager entityManager;
 	
 	@Inject
-	private CompanyManager companyManager;
+	private CompanyDao companyManager;
 
 	public void saveDocument(Document document) {
 		

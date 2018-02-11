@@ -1,4 +1,4 @@
-package br.com.asf.controller.repository;
+package br.com.asf.controller.dao;
 
 import java.math.BigInteger;
 import java.util.List;
@@ -11,7 +11,7 @@ import javax.persistence.TypedQuery;
 import br.com.asf.model.Company;
 
 @Stateless
-public class CompanyManager {
+public class CompanyDao {
 
 	@Inject
 	private EntityManager entityManager;
