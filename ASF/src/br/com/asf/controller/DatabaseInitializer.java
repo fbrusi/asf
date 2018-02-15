@@ -7,6 +7,7 @@ import javax.inject.Inject;
 
 import org.apache.commons.codec.digest.DigestUtils;
 
+import br.com.asf.constant.Profile;
 import br.com.asf.controller.dao.ClientDao;
 import br.com.asf.model.Address;
 import br.com.asf.model.Client;
@@ -38,6 +39,7 @@ public class DatabaseInitializer {
 			address.setStreet("Rua dos Bobos, zero");
 			
 			client.setAddress(address);
+			client.setProfile(Profile.ADMINISTRADOR);
 			
 			clientDao.saveClient(client);
 		}

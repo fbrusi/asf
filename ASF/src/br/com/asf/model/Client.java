@@ -6,6 +6,8 @@ import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -13,11 +15,14 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Version;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.hibernate.validator.constraints.br.CPF;
+
+import br.com.asf.constant.Profile;
 
 @Entity
 @Cacheable
@@ -47,12 +52,17 @@ public class Client {
 	private String email;
 	
 	@NotEmpty(message = "{generic.error.empty}")
-	@Length(min = 4, max = 12, message = "{client.error.password.size}")
+	@Length(min = 4, message = "{client.error.password.size}")
 	@Column(nullable = false)
 	private String password;
 	
 	@Embedded
 	private Address address;
+	
+	@NotNull
+	@Enumerated(EnumType.STRING)
+	@Column(nullable = false, updatable = false)
+	private Profile profile;
 	
 	
 	@ManyToOne
@@ -122,5 +132,13 @@ public class Client {
 
 	public void setAddress(Address address) {
 		this.address = address;
+	}
+
+	public Profile getProfile() {
+		return profile;
+	}
+
+	public void setProfile(Profile profile) {
+		this.profile = profile;
 	}
 }

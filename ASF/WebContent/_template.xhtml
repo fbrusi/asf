@@ -16,10 +16,21 @@
 		<h1>Gestão de Contratos</h1>
 	</div>
 	<div id="conteudo">
+		<h:form rendered="#{loggedUserBean.loggedIn}">
+			<p:menubar>
+				<f:facet name="options">
+					<p:commandButton value="Sair" icon="ui-icon-extlink">
+						<p:confirm header="Encerrar sessão" message="Tem certeza que deseja sair do sistema?" icon="ui-icon-alert" />
+					</p:commandButton>
+					<p:confirmDialog global="true" showEffect="fade" hideEffect="fade" >
+						<p:commandButton value="Sim" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" action="#{loginBean.logout}" />
+       					<p:commandButton value="Não" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+					</p:confirmDialog>
+				</f:facet>
+			</p:menubar>
+		</h:form>
 		<ui:insert name="corpo" />
 	</div>
-	<div id="rodape">
-		Versão Beta
-	</div>
+	<div id="rodape">Versão Beta</div>
 </h:body>
 </html>

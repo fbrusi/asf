@@ -32,7 +32,7 @@ public class ClientDao {
 		return (Long)entityManager.createQuery("SELECT COUNT(c) FROM Client c").getSingleResult();
 	}
 	
-	public boolean isCredentialsOk(Client client) {
+	public boolean isClientExistsByCredentials(Client client) {
 		
 		String jpql = "SELECT COUNT(c) FROM Client c WHERE c.email = :email AND c.password = :password";
 		
@@ -41,5 +41,16 @@ public class ClientDao {
 		query.setParameter("password", DigestUtils.sha256Hex(client.getPassword()));
 		
 		return query.getSingleResult() > 0;
+	}
+
+	public Client getClientByCredentials(Client client) {
+		
+		String jpql = "SELECT c FROM Client c WHERE c.email = :email AND c.password = :password";
+		
+		TypedQuery<Client> query = entityManager.createQuery(jpql, Client.class);
+		query.setParameter("email", client.getEmail());
+		query.setParameter("password", DigestUtils.sha256Hex(client.getPassword()));
+		
+		return query.getSingleResult();
 	}
 }

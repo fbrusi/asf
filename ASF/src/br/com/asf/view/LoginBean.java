@@ -15,9 +15,15 @@ public class LoginBean extends BasicFaces {
 	@Inject
 	private ClientDao clientDao;
 	
+	@Inject
+	private LoggedUserBean loggedUserBean;
+	
 	public String authenticate() {
 	
-		if(clientDao.isCredentialsOk(client)) {
+		if(clientDao.isClientExistsByCredentials(this.client)) {
+			
+			Client client = clientDao.getClientByCredentials(this.client);
+			loggedUserBean.logon(client);
 			return "home?faces-redirect=true";
 		}
 		else {
@@ -25,6 +31,12 @@ public class LoginBean extends BasicFaces {
 			generateMessage(FacesMessage.SEVERITY_ERROR, "Dados incorretos, por favor verifique.");
 			return "login";
 		}
+	}
+	
+	public String logout() {
+		
+		loggedUserBean.logout();
+		return "login?faces-redirect=true";
 	}
 
 	public Client getClient() {
