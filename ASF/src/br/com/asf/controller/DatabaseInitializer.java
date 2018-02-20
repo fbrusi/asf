@@ -26,7 +26,7 @@ public class DatabaseInitializer {
 			
 			Client client = new Client();
 			
-			client.setName("Administrador do sistema");
+			client.setName("Alberto Roberto");
 			client.setCpf("263.121.251-73");
 			client.setEmail("teste@teste.com");
 			client.setPassword(DigestUtils.sha256Hex("admin123"));

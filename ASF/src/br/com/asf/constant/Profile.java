@@ -2,8 +2,6 @@ package br.com.asf.constant;
 
 public enum Profile {
 
-	CONTRATANTE("Contratante"),
-	CONTRATADO("Contratado"),
 	ANALISTA("Analista"),
 	ADMINISTRADOR("Administrador");
 	

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/_template.xhtml">
+	<ui:define name="corpo">
+		<h:form id="companyManager">
+			<p:panel position="center" header="Cadastro de empresas">
+			
+				<p:growl globalOnly="true" showSummary="false" showDetail="true" />
+			
+				<h:panelGrid columns="3" styleClass="campos">
+				
+					<h:outputText value="Nome da empresa:" />
+					<p:inputText id="name" value="#{companyManagerBean.company.name}" maxlength="80" />
+					<p:message for="name" /> 
+					
+					<h:outputText value="CNPJ:" />
+					<p:inputMask id="cnpj" mask="99.999.999/9999-99" value="#{companyManagerBean.company.cnpj}" maxlength="18" />
+					<p:message for="cnpj" /> 
+					<p:commandButton value="Cadastrar" update="companyManager,companyList" actionListener="#{companyManagerBean.signUpCompany}" icon="ui-icon-check" />
+				</h:panelGrid>
+			</p:panel>
+		</h:form>
+		
+		<h:form id="companyList">
+			<br/><br/>
+			<p:panel position="center" header="Empresas cadastradas">
+				<p:dataTable var="company" value="#{companyManagerBean.companies}">
+					<p:column width="40">
+						<p:commandButton icon="ui-icon-close" onclick="PF('confirmDialog').show()">
+							<f:setPropertyActionListener value="#{company}" target="#{companyManagerBean.companyToRemove}" />
+						</p:commandButton>
+						<p:dialog  header="Remoção de empresa" widgetVar="confirmDialog" modal="true" closeOnEscape="true" height="60">
+							<h:outputText value="Confirma a remoção da empresa?" />
+							<br/><br/>
+							<p:commandButton value="Sim" update="companyList" icon="ui-icon-check" actionListener="#{companyManagerBean.removeCompany}" onclick="PF('confirmDialog').hide()" />
+							<p:commandButton value="Não" icon="ui-icon-close" onclick="PF('confirmDialog').hide()" />
+						</p:dialog>
+					</p:column>
+					<p:column headerText="CNPJ">
+						<h:outputText value="#{company.cnpj}" />
+					</p:column>
+					<p:column headerText="Empresa">
+						<h:outputText value="#{company.name}" />
+					</p:column>
+				</p:dataTable>
+			</p:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

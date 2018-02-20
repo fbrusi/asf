@@ -14,15 +14,20 @@
 <h:body>
 	<div id="cabecalho">
 		<h1>Gestão de Contratos</h1>
+		<p:spacer rendered="#{loggedUserBean.loggedIn}">
+			<h3 style="color: white;">#{loggedUserBean.client.name} (#{loggedUserBean.client.profile.profile})</h3>
+		</p:spacer>
 	</div>
 	<div id="conteudo">
 		<h:form rendered="#{loggedUserBean.loggedIn}">
 			<p:menubar>
+				<p:menuitem value="Home" outcome="home" icon="ui-icon-document" />
+				<p:menuitem value="Gerenciar Empresas" outcome="companyManager" icon="ui-icon-gear" />
 				<f:facet name="options">
 					<p:commandButton value="Sair" icon="ui-icon-extlink">
 						<p:confirm header="Encerrar sessão" message="Tem certeza que deseja sair do sistema?" icon="ui-icon-alert" />
 					</p:commandButton>
-					<p:confirmDialog global="true" showEffect="fade" hideEffect="fade" >
+					<p:confirmDialog global="true" closeOnEscape="true" showEffect="fade" hideEffect="fade" >
 						<p:commandButton value="Sim" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" action="#{loginBean.logout}" />
        					<p:commandButton value="Não" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
 					</p:confirmDialog>

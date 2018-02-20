@@ -8,24 +8,31 @@
 
 <ui:composition template="/_template.xhtml">
 	<ui:define name="corpo">
+	
+		<p:messages globalOnly="true" showSummary="false" showDetail="true" />
+	
+		<p:layoutUnit position="center">
+			<h:form>
+				<h:panelGrid columns="3" styleClass="campos">
+					<h:outputText value="E-mail:" />
+					<p:inputText id="email" value="#{loginBean.client.email}" maxlength="50" />
+					<p:message for="email" />
 
-		<h:form>
-			<p:messages globalOnly="true" showSummary="false" showDetail="true" />
-			<p:layoutUnit position="center">
-			<h:panelGrid columns="3" styleClass="campos">
-				<h:outputText value="E-mail:" />
-				<p:inputText id="email" value="#{loginBean.client.email}" />
-				<p:message for="email" />
-				
-				<h:outputText value="Senha:" />
-				<p:password id="password" value="#{loginBean.client.password}" maxlength="12" />
-				<p:message for="password" />
-				
-				<p:commandButton value="Acessar" action="#{loginBean.authenticate}" ajax="false" />
-			</h:panelGrid>
-			</p:layoutUnit>
-		</h:form>
+					<h:outputText value="Senha:" />
+					<p:password id="password" value="#{loginBean.client.password}" maxlength="12" />
+					<p:message for="password" />
+
+					<p:commandButton value="Acessar" action="#{loginBean.authenticate}" ajax="false" />
+				</h:panelGrid>
+			</h:form>
+		</p:layoutUnit>
 		
+		<h:form>
+			<br/>
+			<p:commandLink value="Primeiro acesso?" action="signup" ajax="false" />
+			<br/><br/>
+			<p:commandLink value="Esqueceu sua senha?" />
+		</h:form>
 	</ui:define>
 </ui:composition>
 </html>

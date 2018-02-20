@@ -14,14 +14,14 @@ import br.com.asf.controller.dao.CompanyDao;
 import br.com.asf.model.Company;
 import br.com.asf.service.bean.ResponseMessage;
 
-//@Stateless
-//@WebService
+@Stateless
+@WebService
 public class CompanyWS {
 
 	@Inject
 	private CompanyDao companyManager;
 
-	//@WebMethod
+	@WebMethod
 	public ResponseMessage signUpCompany(
 			@WebParam(name = "name")
 			String name, 
@@ -45,13 +45,13 @@ public class CompanyWS {
 		}
 	}
 	
-	//@WebMethod
+	@WebMethod
 	@WebResult(name = "company")
 	public List<Company> getAllCompanies() {
 		return companyManager.getAllCompanies();
 	}
 	
-	//@WebMethod
+	@WebMethod
 	public ResponseMessage removeCompany(
 			@WebParam(name = "id")
 			String id) {
