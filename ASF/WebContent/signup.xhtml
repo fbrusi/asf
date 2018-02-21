@@ -8,13 +8,35 @@
 
 <ui:composition template="/_template.xhtml">
 	<ui:define name="corpo">
-		<h:form>
-			<p:messages globalOnly="true" showSummary="false" showDetail="true" />
-			<p:layoutUnit position="center">
+		<h:form id="signUpForm">
+			<p:growl globalOnly="true" showSummary="false" showDetail="true" />
+
+			<p:panel position="center" header="Dados Gerais">
 				<h:panelGrid columns="3" styleClass="campos">
+					<h:outputText value="Nome:" />
+					<p:inputText id="name" value="#{signUpBean.client.name}" maxlength="80" />
+					<p:message for="name" />
 					
+					<h:outputText value="CPF:" />
+					<p:inputMask id="cpf" mask="999.999.999-99" value="#{signUpBean.client.cpf}" maxlength="14" />
+					<p:message for="cpf" />
+					
+					<h:outputText value="E-mail:" />
+					<p:inputText id="email" value="#{signUpBean.client.email}" maxlength="80" />
+					<p:message for="email" />
+					
+					<h:outputText value="Senha:" />
+					<p:password id="password" value="#{signUpBean.client.password}" 
+							maxlength="12" feedback="true" promptLabel="Informe uma senha segura" weakLabel="Fraca" goodLabel="Boa" strongLabel="Forte" />
+					<p:message for="password" />
+					
+					<h:outputText value="Confirme a senha:" />
+					<p:password id="passwordConfirm" value="#{signUpBean.passwordConfirm}" maxlength="12" />
+					<p:message for="passwordConfirm" />
+					
+					<p:commandButton value="Avançar" action="#{signUpBean.goToStep2}" ajax="false" />
 				</h:panelGrid>
-			</p:layoutUnit>
+			</p:panel>
 		</h:form>
 	</ui:define>
 </ui:composition>

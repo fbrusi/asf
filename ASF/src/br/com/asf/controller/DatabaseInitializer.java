@@ -36,7 +36,8 @@ public class DatabaseInitializer {
 			address.setNeighborhood("Bairro Feliz");
 			address.setPostalCode("01728-000");
 			address.setState("PR");
-			address.setStreet("Rua dos Bobos, zero");
+			address.setStreet("Rua dos Bobos");
+			address.setComplement("zero");
 			
 			client.setAddress(address);
 			client.setProfile(Profile.ADMINISTRADOR);

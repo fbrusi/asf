@@ -57,7 +57,7 @@ public class Client {
 	private String password;
 	
 	@Embedded
-	private Address address;
+	private Address address = new Address();
 	
 	@NotNull
 	@Enumerated(EnumType.STRING)

@@ -3,30 +3,21 @@ package br.com.asf.model;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
-import org.hibernate.validator.constraints.NotEmpty;
-
 @Embeddable
 public class Address {
 
-	@NotEmpty
-	@Column(nullable = false, name = "postal_code")
+	@Column(name = "postal_code")
 	private String postalCode;
 	
-	@NotEmpty
-	@Column(nullable = false)
 	private String neighborhood;
 	
-	@NotEmpty
-	@Column(nullable = false)
 	private String city;
 	
-	@NotEmpty
-	@Column(nullable = false)
 	private String state;
 	
-	@NotEmpty
-	@Column(nullable = false)
 	private String street;
+	
+	private String complement;
 
 	public String getPostalCode() {
 		return postalCode;
@@ -66,5 +57,13 @@ public class Address {
 
 	public void setStreet(String street) {
 		this.street = street;
+	}
+
+	public String getComplement() {
+		return complement;
+	}
+
+	public void setComplement(String complement) {
+		this.complement = complement;
 	}
 }

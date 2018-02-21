@@ -24,6 +24,7 @@ public class AuthorizerListener implements PhaseListener {
 		
 		nonLoggedPages.add("/login.xhtml");
 		nonLoggedPages.add("/signup.xhtml");
+		nonLoggedPages.add("/signup2.xhtml");
 		
 		adminPages.add("/companyManager.xhtml");
 	}
