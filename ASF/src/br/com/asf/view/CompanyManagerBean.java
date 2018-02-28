@@ -5,8 +5,10 @@ import java.util.List;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 
+import br.com.asf.controller.dao.CompanyDao;
 import br.com.asf.model.Company;
 import br.com.asf.service.ws.client.CompanyWS;
 import br.com.asf.service.ws.client.CompanyWSService;
@@ -20,9 +22,12 @@ public class CompanyManagerBean extends BasicFaces implements Serializable {
 
 	private Company company = new Company();
 	
-	private br.com.asf.service.ws.client.Company companyToRemove;
+	private br.com.asf.service.ws.client.Company companyToRemoveOrEdit = new br.com.asf.service.ws.client.Company();
 	
 	private List<br.com.asf.service.ws.client.Company> companies;
+	
+	@Inject
+	private CompanyDao companyDao;
 	
 	public void signUpCompany() {
 		
@@ -43,9 +48,23 @@ public class CompanyManagerBean extends BasicFaces implements Serializable {
 	public void removeCompany() {
 		
 		CompanyWS companyWS = new CompanyWSService().getCompanyWSPort();
-		companyWS.removeCompany(companyToRemove.getId().toString());
+		companyWS.removeCompany(companyToRemoveOrEdit.getId().toString());
 		
+		companyToRemoveOrEdit = new br.com.asf.service.ws.client.Company();
 		companies = companyWS.getAllCompanies();
+	}
+	
+	public void updateCompany() {
+		
+		Company company = companyDao.getCompanyById(companyToRemoveOrEdit.getId());
+		company.setName(companyToRemoveOrEdit.getName());
+		
+		companyDao.updateCompanyInfo(company);
+		
+		CompanyWS companyWS = new CompanyWSService().getCompanyWSPort();
+		companies = companyWS.getAllCompanies();
+		
+		companyToRemoveOrEdit = new br.com.asf.service.ws.client.Company();
 	}
 	
 	public List<br.com.asf.service.ws.client.Company> getCompanies() {
@@ -71,11 +90,11 @@ public class CompanyManagerBean extends BasicFaces implements Serializable {
 		this.companies = companies;
 	}
 
-	public br.com.asf.service.ws.client.Company getCompanyToRemove() {
-		return companyToRemove;
+	public br.com.asf.service.ws.client.Company getCompanyToRemoveOrEdit() {
+		return companyToRemoveOrEdit;
 	}
 
-	public void setCompanyToRemove(br.com.asf.service.ws.client.Company companyToRemove) {
-		this.companyToRemove = companyToRemove;
+	public void setCompanyToRemoveOrEdit(br.com.asf.service.ws.client.Company companyToRemoveOrEdit) {
+		this.companyToRemoveOrEdit = companyToRemoveOrEdit;
 	}
 }

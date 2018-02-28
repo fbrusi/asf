@@ -31,9 +31,23 @@
 			<br/><br/>
 			<p:panel position="center" header="Empresas cadastradas">
 				<p:dataTable var="company" value="#{companyManagerBean.companies}">
-					<p:column width="40">
+					<p:column headerText="Editar" width="60">
+						<p:commandButton icon="ui-icon-edit" onclick="PF('editDialog').show()">
+							<f:setPropertyActionListener value="#{company}" target="#{companyManagerBean.companyToRemoveOrEdit}" />
+						</p:commandButton>
+						<p:dialog  header="Edição de empresa" widgetVar="editDialog" modal="true" closeOnEscape="true" height="130">
+							<h:outputText value="Informe o novo nome da empresa:" />
+							<br/><br/>
+							<h:outputText value="Nome:" />
+							<p:inputText id="newName" value="#{companyManagerBean.companyToRemoveOrEdit.name}" maxlength="80" />
+							<br/><br/>
+							<p:commandButton value="Salvar" update="companyList" icon="ui-icon-check" actionListener="#{companyManagerBean.updateCompany}" onclick="PF('editDialog').hide()" />
+							<p:commandButton value="Cancelar" icon="ui-icon-close" onclick="PF('editDialog').hide()" />
+						</p:dialog>
+					</p:column>
+					<p:column headerText="Remover" width="60">
 						<p:commandButton icon="ui-icon-close" onclick="PF('confirmDialog').show()">
-							<f:setPropertyActionListener value="#{company}" target="#{companyManagerBean.companyToRemove}" />
+							<f:setPropertyActionListener value="#{company}" target="#{companyManagerBean.companyToRemoveOrEdit}" />
 						</p:commandButton>
 						<p:dialog  header="Remoção de empresa" widgetVar="confirmDialog" modal="true" closeOnEscape="true" height="60">
 							<h:outputText value="Confirma a remoção da empresa?" />

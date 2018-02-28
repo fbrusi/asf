@@ -19,7 +19,7 @@ import br.com.asf.service.bean.ResponseMessage;
 public class CompanyWS {
 
 	@Inject
-	private CompanyDao companyManager;
+	private CompanyDao companyDao;
 
 	@WebMethod
 	public ResponseMessage signUpCompany(
@@ -31,7 +31,7 @@ public class CompanyWS {
 		if(name == null || name.isEmpty() || cnpj == null || cnpj.isEmpty()) {
 			return new ResponseMessage("Todos os parâmetros são obrigatórios.");
 		}
-		else if(companyManager.companyExists(cnpj)) {
+		else if(companyDao.companyExists(cnpj)) {
 			return new ResponseMessage("Empresa já está cadastrada.");
 		}
 		else {
@@ -40,7 +40,7 @@ public class CompanyWS {
 			company.setName(name);
 			company.setCnpj(cnpj);
 			
-			companyManager.saveCompany(company);
+			companyDao.saveCompany(company);
 			return new ResponseMessage();
 		}
 	}
@@ -48,7 +48,7 @@ public class CompanyWS {
 	@WebMethod
 	@WebResult(name = "company")
 	public List<Company> getAllCompanies() {
-		return companyManager.getAllCompanies();
+		return companyDao.getAllCompanies();
 	}
 	
 	@WebMethod
@@ -59,7 +59,7 @@ public class CompanyWS {
 		Company company = new Company();
 		company.setId(new BigInteger(id));
 		
-		companyManager.removeCompany(company);
+		companyDao.removeCompany(company);
 		
 		return new ResponseMessage();
 	}
